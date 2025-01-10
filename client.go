@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"math"
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -51,17 +52,19 @@ func blockWalletBalance(account common.Address) {
 		log.Fatal(err)
 	}
 
+	convertWeiToEth(balance)
+
 	fmt.Println(balance)
 }
 
-func convertWeiToEth(account common.Address) {
-	blockNumber := big.NewInt(5532993)
+func convertWeiToEth(balance *big.Int) {
+	fbalance := new(big.Float)
 
-	balance, err := client.BalanceAt(context.Background(), account, blockNumber)
+	// value in wei (wei = fraction of eth)
+	fbalance.SetString(balance.String())
 
-	if err != nil {
-		log.Fatal(err)
-	}
+	// convert wei to eth using wei balance dividing for 10 to the power of 18
+	ethValue := new(big.Float).Quo(fbalance, big.NewFloat(math.Pow10(18)))
 
-	fmt.Println(balance)
+	fmt.Println(ethValue)
 }
