@@ -1,0 +1,29 @@
+# Binários do Go
+*.exe
+*.dll
+*.so
+*.dylib
+*.out
+
+# Diretórios criados pelo comando go install
+/bin/
+/pkg/
+
+# Diretórios de módulos do Go
+/vendor/
+
+# Arquivos de teste de cobertura
+*.cover
+*.test
+
+# IDEs e editores
+.idea/
+.vscode/
+
+# Logs e temporários
+*.log
+*.tmp
+
+# Dependências
+go.sum
+go.mod
